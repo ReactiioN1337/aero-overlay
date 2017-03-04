@@ -171,12 +171,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Color.cpp" />
+    <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Device2D.cpp" />
+    <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Device3D9.cpp" />
     <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\main.cpp" />
     <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Overlay.cpp" />
+    <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Surface.cpp" />
+    <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Surface2D.cpp" />
+    <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Surface3D9.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\drawing\Color.hpp" />
+    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Device2D.hpp" />
+    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Device3D9.hpp" />
     <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Overlay.hpp" />
+    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Surface.hpp" />
+    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Surface2D.hpp" />
+    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Surface3D9.hpp" />
     <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\stdafx.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

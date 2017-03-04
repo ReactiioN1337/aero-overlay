@@ -21,6 +21,21 @@
     <Filter Include="render\Overlay">
       <UniqueIdentifier>{2341b855-3f62-4d46-88e6-9831d0f4113e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="render\Direct2D">
+      <UniqueIdentifier>{7b7cdb8f-f56a-41a0-8f8a-3886bbc23b55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="render\Direct3D9">
+      <UniqueIdentifier>{9cc90e39-3ecc-4057-982c-f08f71e75b12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="render\Surface">
+      <UniqueIdentifier>{fc7b7c1b-0baf-43a9-981b-12c9fae54b45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="render\Direct2D\Surface">
+      <UniqueIdentifier>{8ec48a02-2005-423c-b31e-094edb871d76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="render\Direct3D9\Surface">
+      <UniqueIdentifier>{bfde8471-9e6e-4cf6-ba8e-47f6ab81b841}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\main.cpp">
@@ -32,6 +47,21 @@
     <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Overlay.cpp">
       <Filter>render\Overlay</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Device3D9.cpp">
+      <Filter>render\Direct3D9</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Device2D.cpp">
+      <Filter>render\Direct2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Surface.cpp">
+      <Filter>render\Surface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Surface2D.cpp">
+      <Filter>render\Direct2D\Surface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Surface3D9.cpp">
+      <Filter>render\Direct3D9\Surface</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\stdafx.hpp">
@@ -42,6 +72,21 @@
     </ClInclude>
     <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Overlay.hpp">
       <Filter>render\Overlay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Device3D9.hpp">
+      <Filter>render\Direct3D9</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Device2D.hpp">
+      <Filter>render\Direct2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Surface.hpp">
+      <Filter>render\Surface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Surface2D.hpp">
+      <Filter>render\Direct2D\Surface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Surface3D9.hpp">
+      <Filter>render\Direct3D9\Surface</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
