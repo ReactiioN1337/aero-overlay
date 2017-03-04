@@ -1,0 +1,3 @@
+[submodule "aero-overlay/contrib/DirectX-SDK"]
+	path = aero-overlay/contrib/DirectX-SDK
+	url = https://github.com/ReactiioN1337/DirectX-SDK
