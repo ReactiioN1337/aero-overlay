@@ -3,22 +3,7 @@
 #define REACTIION_AERO_OVERLAY_SURFACE2D_HPP
 
 #include "Surface.hpp"
-
-/// disable the compiler warning C4005
-/// mixing DirectX with Direct2D will result in a ton of
-/// compiler warnings (previous definition XXX)
-#pragma warning( disable : 4005 )
-/// Direct2D + Direct Draw include files
-#include <d2d1.h>
-#include <d2d1helper.h>
-#include <dwrite.h>
-
-/// link the libraries for Direct2D + Direct Draw
-#pragma comment( lib, "d2d1.lib" )
-#pragma comment( lib, "dwrite.lib" )
-
-/// enable the compiler warning C4005
-#pragma warning( default : 4005 )
+#include "Font2D.hpp"
 
 namespace render {
 

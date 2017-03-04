@@ -3,13 +3,7 @@
 #define REACTIION_AERO_OVERLAY_SURFACE3D9_HPP
 
 #include "Surface.hpp"
-/// DirectX 9 includes
-#include <d3d9.h>
-#include <d3dx9.h>
-
-/// link the libraries for DirectX 9
-#pragma comment( lib, "d3d9.lib" )
-#pragma comment( lib, "d3dx9.lib" )
+#include "Font3D9.hpp"
 
 namespace render {
 
