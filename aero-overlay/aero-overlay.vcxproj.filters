@@ -36,6 +36,9 @@
     <Filter Include="render\Direct3D9\Surface">
       <UniqueIdentifier>{bfde8471-9e6e-4cf6-ba8e-47f6ab81b841}</UniqueIdentifier>
     </Filter>
+    <Filter Include="render\Font">
+      <UniqueIdentifier>{25919da6-2de2-43b9-826f-085e50c50c1a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\main.cpp">
@@ -87,6 +90,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Surface3D9.hpp">
       <Filter>render\Direct3D9\Surface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Font.hpp">
+      <Filter>render\Font</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
