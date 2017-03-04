@@ -39,6 +39,12 @@
     <Filter Include="render\Font">
       <UniqueIdentifier>{25919da6-2de2-43b9-826f-085e50c50c1a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="render\Direct3D9\Font">
+      <UniqueIdentifier>{bfe363fa-bf75-4ca8-b9e9-2906925db3c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="render\Direct2D\Font">
+      <UniqueIdentifier>{75ce06e8-8127-4204-9ad0-e5993de7b1e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\main.cpp">
@@ -64,6 +70,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Surface3D9.cpp">
       <Filter>render\Direct3D9\Surface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Font3D9.cpp">
+      <Filter>render\Direct3D9\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Font2D.cpp">
+      <Filter>render\Direct2D\Font</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -93,6 +105,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Font.hpp">
       <Filter>render\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Font3D9.hpp">
+      <Filter>render\Direct3D9\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Font2D.hpp">
+      <Filter>render\Direct2D\Font</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
