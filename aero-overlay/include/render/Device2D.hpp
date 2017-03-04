@@ -2,6 +2,7 @@
 #ifndef REACTIION_AERO_OVERLAY_DEVICE2D_HPP
 #define REACTIION_AERO_OVERLAY_DEVICE2D_HPP
 #include "Overlay.hpp"
+#include "Surface2D.hpp"
 
 namespace render {
 
@@ -12,8 +13,7 @@ public:
     Device2D() = default;
     ~Device2D() override;
     bool create( const std::string& target_window_title ) override;
-    bool begin_scene() override;
-    void end_scene() override;
+    bool render() override;
     void shutdown() override;
 
 private:

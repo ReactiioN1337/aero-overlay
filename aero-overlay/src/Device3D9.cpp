@@ -1,12 +1,11 @@
 #include <render/Device3D9.hpp>
+#include <render/Surface3D9.hpp>
 using namespace render;
 
 Device3D9::~Device3D9()
 {
     /// Call to a virtual function inside a destructor will be statically resolved
-    [this]{
-        shutdown();
-    }();
+    DTOR_EXECUTE_VIRTUAL( shutdown );
 }
 
 bool Device3D9::create( const std::string& target_window_title )
@@ -50,14 +49,18 @@ bool Device3D9::create( const std::string& target_window_title )
         &m_Direct3D9Device ) ) ) {
         return false;
     }
+    if( FAILED( D3DXCreateSprite( m_Direct3D9Device, &m_Direct3DXSprite ) ) ) {
+        return false;
+    }
 
-    return true;
+    m_Surface = std::make_unique<Surface3D9>( m_Direct3DXSprite );
+    return m_Surface->initialize( m_Direct3D9Device );
 }
 
-bool Device3D9::begin_scene()
+bool Device3D9::render()
 {
     /// handle window messages
-    if( !Overlay::begin_scene() ) {
+    if( !Overlay::render() ) {
         return false;
     }
 
@@ -71,11 +74,23 @@ bool Device3D9::begin_scene()
     ) ) {
         return false;        
     }
-    return in_foreground();
-}
 
-void Device3D9::end_scene()
-{
+    /// start the surface scene only when the target window
+    /// is in foreground
+    if( in_foreground() ) {
+        /// if the surface has successfully started a new scene
+        if( m_Surface->begin_scene() ) {
+            ///-------------------------------------------------------------------------------------------------
+            /// begin the rendering here
+            ///-------------------------------------------------------------------------------------------------
+
+            ///-------------------------------------------------------------------------------------------------
+            /// stop the rendering here
+            ///-------------------------------------------------------------------------------------------------
+            m_Surface->end_scene();
+        }
+    }
+
     m_Direct3D9Device->EndScene();
     m_Direct3D9Device->PresentEx(
         nullptr,
@@ -84,6 +99,8 @@ void Device3D9::end_scene()
         nullptr,
         0
     );
+
+    return true;
 }
 
 void Device3D9::shutdown()
@@ -91,4 +108,9 @@ void Device3D9::shutdown()
     Overlay::shutdown();
     safe_release( &m_Direct3D9Ex );
     safe_release( &m_Direct3D9Device );
+    safe_release( &m_Direct3DXSprite );
+
+    if( m_Surface ) {
+        m_Surface->shutdown();
+    }
 }

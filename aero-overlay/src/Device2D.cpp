@@ -1,12 +1,11 @@
 #include <render/Device2D.hpp>
+#include <render/Surface2D.hpp>
 using namespace render;
 
 Device2D::~Device2D()
 {
     /// Call to a virtual function inside a destructor will be statically resolved
-    [this]{
-        shutdown();
-    }();
+    DTOR_EXECUTE_VIRTUAL( shutdown );
 }
 
 bool Device2D::create( const std::string& target_window_title )
@@ -57,13 +56,14 @@ bool Device2D::create( const std::string& target_window_title )
         return false;
     }
 
-    return true;
+    m_Surface = std::make_unique<Surface2D>( m_DirectWriteFactory, m_Diect2DColorBrush );
+    return m_Surface->initialize( m_Direct2DHwndRenderTarget );
 }
 
-bool Device2D::begin_scene()
+bool Device2D::render()
 {
     /// handle window messages
-    if( !Overlay::begin_scene() ) {
+    if( !Overlay::render() ) {
         return false;
     }
 
@@ -71,12 +71,28 @@ bool Device2D::begin_scene()
     m_Direct2DHwndRenderTarget->SetTransform( D2D1::Matrix3x2F::Identity() );
     m_Direct2DHwndRenderTarget->Clear();
 
-    return in_foreground();
-}
+    /// start the surface scene only when the target window
+    /// is in foreground
+    if( in_foreground() ) {
+        /// if the surface has successfully started a new scene
+        if( m_Surface->begin_scene() ) {
+            ///-------------------------------------------------------------------------------------------------
+            /// begin the rendering here
+            ///-------------------------------------------------------------------------------------------------
 
-void Device2D::end_scene()
-{
+
+            m_Surface->rect( 50, 50, 50, 50, 0xFFFF0000 );
+
+            ///-------------------------------------------------------------------------------------------------
+            /// stop the rendering here
+            ///-------------------------------------------------------------------------------------------------
+            m_Surface->end_scene();
+        }
+    }
+
     m_Direct2DHwndRenderTarget->EndDraw();
+
+    return true;
 }
 
 void Device2D::shutdown()
