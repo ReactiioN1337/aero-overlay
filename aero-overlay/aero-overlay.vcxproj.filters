@@ -9,14 +9,39 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="drawing">
+      <UniqueIdentifier>{4eb0981e-e37b-4d6e-b992-ece496fea891}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="drawing\Color">
+      <UniqueIdentifier>{7580976c-a049-445d-aeaf-3bf8c422b3f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="render">
+      <UniqueIdentifier>{1a28c391-ef11-46c3-ab67-1b821078a83e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="render\Overlay">
+      <UniqueIdentifier>{2341b855-3f62-4d46-88e6-9831d0f4113e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Color.cpp">
+      <Filter>drawing\Color</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Overlay.cpp">
+      <Filter>render\Overlay</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\stdafx.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\drawing\Color.hpp">
+      <Filter>drawing\Color</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Overlay.hpp">
+      <Filter>render\Overlay</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
