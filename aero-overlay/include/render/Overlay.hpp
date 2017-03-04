@@ -1,12 +1,30 @@
 #pragma once
 #ifndef REACTIION_AERO_OVERLAY_OVERLAY_HPP
 #define REACTIION_AERO_OVERLAY_OVERLAY_HPP
-#include "../stdafx.hpp"
+#include "Surface.hpp"
 
 namespace render {
 
+enum class EDeviceType
+{
+    ///< Direct2D + Direct Draw
+    Direct2D = 0,
+
+    ///< DirectX 9
+    Direct3D9,
+};
+
 class Overlay
 {
+    /// An alias for the unique surface pointer.
+    using Surface_t       = std::unique_ptr<Surface>;
+    /// An alias for the unique overlay pointer.
+    using Overlay_t       = std::unique_ptr<Overlay>;
+    /// An alias for the window properties.
+    ///< 0: x position
+    ///< 1: y position
+    ///< 2: width
+    ///< 3: height
     using WindowProps     = std::array<int32_t, 4>;
 
 public:
@@ -50,23 +68,28 @@ public:
     virtual bool            in_foreground() const;
 
     ///-------------------------------------------------------------------------------------------------
-    /// Begins a scene.
+    /// Renders this object.
     ///
     /// @author ReactiioN
     /// @date   04.03.2017
     ///
     /// @return True if it succeeds, false if it fails.
     ///-------------------------------------------------------------------------------------------------
-    virtual bool            begin_scene();
+    virtual bool            render();
+
+
 
     ///-------------------------------------------------------------------------------------------------
-    /// Ends a scene.
+    /// News the given device type.
     ///
     /// @author ReactiioN
     /// @date   04.03.2017
+    ///
+    /// @param  device_type Type of the device.
+    ///
+    /// @return An Overlay_t.
     ///-------------------------------------------------------------------------------------------------
-    virtual void            end_scene() = 0;
-
+    static Overlay_t        New( const EDeviceType device_type );
 public:
     ///-------------------------------------------------------------------------------------------------
     /// Scales the overlay size to the target window size.
@@ -150,6 +173,7 @@ protected:
     int32_t         m_Height     = 0;
     std::string     m_ClassName;
     std::string     m_WindowTitle;
+    Surface_t       m_Surface;
 };
 
 }

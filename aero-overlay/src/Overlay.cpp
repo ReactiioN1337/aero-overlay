@@ -1,4 +1,6 @@
 #include <render/Overlay.hpp>
+#include <render/Device2D.hpp>
+#include <render/Device3D9.hpp>
 using namespace render;
 
 Overlay::Overlay()
@@ -105,7 +107,7 @@ bool Overlay::in_foreground() const
     return m_WndTarget && GetForegroundWindow() == m_WndTarget;
 }
 
-bool Overlay::begin_scene()
+bool Overlay::render()
 {
     MSG current_message;
     if( PeekMessage( &current_message, nullptr, 0, 0, PM_REMOVE ) ) {
@@ -117,6 +119,19 @@ bool Overlay::begin_scene()
         DispatchMessage( &current_message );
     }
     return true;
+}
+
+Overlay::Overlay_t Overlay::New( const EDeviceType device_type )
+{
+    switch( device_type ) {
+    case EDeviceType::Direct2D:
+        return std::make_unique<Device2D>();
+    case EDeviceType::Direct3D9:
+        return std::make_unique<Device3D9>();
+    default:
+        break;
+    }
+    return nullptr;
 }
 
 void Overlay::scale_overlay()
