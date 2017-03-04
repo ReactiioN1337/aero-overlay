@@ -52,7 +52,7 @@ constexpr const T& clamp( const T& in, const T& mins, const T& maxs )
     return std::min( std::max( in, mins ), maxs );
 }
 
-#else /// <= Visual Studio 2013, upgrade your vs bro
+#else /// Visual Studio 2013 or older, upgrade your vs bro
 template<typename T>
 const T& clamp( const T& in, const T& mins, const T& maxs )
 {
@@ -61,6 +61,12 @@ const T& clamp( const T& in, const T& mins, const T& maxs )
 }
 #endif
 }
+#endif
+
+#if _MSC_VER >= 1900
+#define STATIC_VAR( T, NAME, VALUE ) static constexpr T NAME = VALUE;
+#else /// Visual Studio 2013 or older, upgrade your vs bro
+#define STATIC_VAR( T, NAME, VALUE ) static T NAME = VALUE;
 #endif
 
 template<typename T>
