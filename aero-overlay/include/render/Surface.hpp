@@ -3,6 +3,7 @@
 #define REACTIION_AERO_OVERLAY_SURFACE_HPP
 
 #include "../drawing/Color.hpp"
+#include "Font.hpp"
 
 namespace render {
 
@@ -19,6 +20,7 @@ private:
         int32_t,       /// height
         drawing::Color /// obv. the color
     >;
+    using Fonts = std::map<std::string, Font_t>;
     using RenderData = std::vector<RenderObj>;
 
 public:
@@ -26,11 +28,21 @@ public:
     virtual ~Surface();
     virtual bool initialize( const void* device ) = 0;
     virtual bool begin_scene() = 0;
+    virtual Font_t add_font(
+        const std::string& name,
+        const std::string& definition,
+        const int32_t      height,
+        const int32_t      weight,
+        const int32_t      flags ) = 0;
+
+    virtual Font_t get_font(
+        const std::string& name );
+
 protected:
     virtual void render_data() = 0;
 public:
     virtual void end_scene() = 0;
-    virtual void shutdown() = 0;
+    virtual void shutdown();
     virtual void border_box(
         const int32_t x,
         const int32_t y,
@@ -72,6 +84,20 @@ public:
         const int32_t         end_y,
         const drawing::Color& color );
 
+    virtual void text(
+        const int32_t         x,
+        const int32_t         y,
+        const Font_t&         font,
+        const drawing::Color& color,
+        const std::string&    message ) = 0;
+
+    virtual void text(
+        const int32_t         x,
+        const int32_t         y,
+        const std::string&    font_name,
+        const drawing::Color& color,
+        const std::string&    message );
+
 protected:
     template<typename T1, typename T2, typename T3, typename T4>
     void insert_line(
@@ -93,6 +119,7 @@ protected:
     bool       m_Initialized = false;
     RenderData m_Lines;
     RenderData m_RectAngles;
+    Fonts      m_Fonts;
 };
 
 template<typename T1, typename T2, typename T3, typename T4>

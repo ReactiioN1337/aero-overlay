@@ -1,4 +1,5 @@
 #include <render/Surface2D.hpp>
+#include "render/Overlay.hpp"
 using namespace drawing;
 using namespace render;
 
@@ -38,6 +39,37 @@ bool Surface2D::begin_scene()
     return m_Initialized;
 }
 
+Font_t Surface2D::add_font(
+    const std::string& name,
+    const std::string& definition,
+    const int32_t      height,
+    const int32_t      weight,
+    const int32_t      flags )
+{
+    if( !m_Initialized ||
+        name.empty()   ||
+        definition.empty() ) {
+        return nullptr;
+    }
+    if( m_Fonts.count( name ) ) {
+        return m_Fonts.at( name );
+    }
+
+    auto font = std::make_shared<Font2D>(
+        definition,
+        height,
+        weight,
+        flags,
+        m_DirectWriteFactory
+    );
+    if( !font->create() ) {
+        return nullptr;
+    }
+
+    m_Fonts.emplace( name, std::move( font ) );
+    return m_Fonts.at( name );
+}
+
 void Surface2D::end_scene()
 {
     if( m_Initialized ) {
@@ -47,7 +79,45 @@ void Surface2D::end_scene()
 
 void Surface2D::shutdown()
 {
+    Surface::shutdown();
+    safe_release( &m_Direct2DHwndRenderTarget );
+    safe_release( &m_DirectWriteFactory );
+    safe_release( &m_Diect2DColorBrush );
+}
+
+void Surface2D::text(
+    const int32_t      x,
+    const int32_t      y,
+    const Font_t&      font,
+    const Color&       color,
+    const std::string& message )
+{
+    if( !m_Initialized || !font || message.empty() ) {
+        return;
+    }
+
+    auto direct_draw_font = std::static_pointer_cast<Font2D>( font );
     
+    const auto X = static_cast<float>( x );
+    const auto Y = static_cast<float>( y );
+    const auto font_rect = D2D1::RectF(
+        X,
+        Y,
+        X + static_cast<float>( message.length() ) * static_cast<float>( direct_draw_font->height() / 2 ),
+        static_cast<float>( direct_draw_font->height() )
+    );
+
+    /// convert the message to an unicode string
+    const auto message_unicode = Overlay::convert_string_to_wide( message );
+
+    m_Diect2DColorBrush->SetColor( D2D1::ColorF( color.to_hex() ) );
+    m_Direct2DHwndRenderTarget->DrawTextW( 
+        message_unicode.c_str(),
+        static_cast<uint32_t>( message_unicode.length() ),
+        direct_draw_font->get_font(),
+        &font_rect,
+        m_Diect2DColorBrush 
+    );
 }
 
 void Surface2D::set_render_target(
@@ -92,7 +162,7 @@ void Surface2D::render_data()
         const auto clr      = std::get<4>( data ).to_hex();
         
         m_Diect2DColorBrush->SetColor( D2D1::ColorF( clr ) );
-        /*m_Direct2DHwndRenderTarget->DrawLine(
+        m_Direct2DHwndRenderTarget->DrawLine(
             {
                 start_x,
                 start_y,
@@ -102,7 +172,7 @@ void Surface2D::render_data()
                 end_y,
             },
             m_Diect2DColorBrush
-        );*/
+        );
     }
 
     /// clear the old data

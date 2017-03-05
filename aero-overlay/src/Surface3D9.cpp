@@ -133,6 +133,38 @@ bool Surface3D9::begin_scene()
     return m_Initialized;
 }
 
+Font_t Surface3D9::add_font(
+    const std::string& name,
+    const std::string& definition,
+    const int32_t      height,
+    const int32_t      weight,
+    const int32_t      flags )
+{
+    if( !m_Initialized ||
+        name.empty()   ||
+        definition.empty() ) {
+        return nullptr;
+    }
+    if( m_Fonts.count( name ) ) {
+        return m_Fonts.at( name );
+    }
+
+    auto font = std::make_shared<Font3D9>(
+        definition,
+        height,
+        weight,
+        flags,
+        m_Direct3D9Device
+    );
+    if( !font->create() ) {
+        return nullptr;
+    }
+
+    m_Fonts.emplace( name, std::move( font ) );
+    return m_Fonts.at( name );
+}
+
+
 void Surface3D9::end_scene()
 {
     if( m_Initialized ) {
@@ -142,7 +174,38 @@ void Surface3D9::end_scene()
 
 void Surface3D9::shutdown()
 {
+    Surface::shutdown();
     safe_release( &m_Direct3DXSprite );
+}
+
+void Surface3D9::text(
+    const int32_t      x,
+    const int32_t      y,
+    const Font_t&      font,
+    const Color&       color,
+    const std::string& message )
+{
+    if( !m_Initialized || !font || message.empty() ) {
+        return;
+    }
+
+    const auto message_length = static_cast<int32_t>( message.length() );
+    auto direct_draw_font     = std::static_pointer_cast<Font3D9>( font );
+    RECT font_rect = {
+        x,
+        y,
+        x + message_length *  direct_draw_font->height() / 2,
+        direct_draw_font->height()
+    };
+
+    direct_draw_font->get_font()->DrawTextA(
+        nullptr,
+        message.c_str(),
+        message_length,
+        &font_rect,
+        DT_NOCLIP,
+        color.to_hex()
+    );
 }
 
 void Surface3D9::set_sprite( const ID3DXSprite* sprite )

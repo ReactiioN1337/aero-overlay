@@ -6,6 +6,22 @@ Surface::~Surface()
 {
 }
 
+Font_t Surface::get_font(
+    const std::string& name )
+{
+    return !name.empty() && m_Fonts.count( name ) != 0 
+         ? m_Fonts.at( name )
+         : nullptr;
+}
+
+void Surface::shutdown()
+{
+    for( auto& kp : m_Fonts ) {
+        kp.second->shutdown();
+    }
+    m_Fonts.clear();
+}
+
 void Surface::border_box(
     const int32_t x,
     const int32_t y,
@@ -86,4 +102,19 @@ void Surface::line(
     const Color&  color )
 {
     insert_line( start_x, start_y, end_x, end_y, color );
+}
+
+void Surface::text(
+    const int32_t      x,
+    const int32_t      y,
+    const std::string& font_name,
+    const Color&       color,
+    const std::string& message )
+{
+    if( m_Initialized ) {
+        auto font = get_font( font_name );
+        if( font ) {
+            text( x, y, font, color, message );
+        }
+    }
 }

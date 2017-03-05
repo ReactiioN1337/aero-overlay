@@ -18,8 +18,22 @@ public:
     ~Surface2D() override;
     bool initialize( const void* device ) override;
     bool begin_scene() override;
+
+    Font_t add_font(
+        const std::string& name,
+        const std::string& definition,
+        const int32_t      height,
+        const int32_t      weight,
+        const int32_t      flags ) override;
+
     void end_scene() override;
     void shutdown() override;
+    void text(
+        const int32_t         x,
+        const int32_t         y,
+        const Font_t&         font,
+        const drawing::Color& color,
+        const std::string&    message ) override;
     void set_render_target( 
         const ID2D1HwndRenderTarget* render_target );
     void set_write_factory(
