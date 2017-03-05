@@ -17,15 +17,21 @@ enum class EDeviceType
 class Overlay
 {
     /// An alias for the unique surface pointer.
-    using Surface_t       = std::unique_ptr<Surface>;
+    using Surface_t        = std::unique_ptr<Surface>;
     /// An alias for the unique overlay pointer.
-    using Overlay_t       = std::unique_ptr<Overlay>;
+    using Overlay_t        = std::unique_ptr<Overlay>;
     /// An alias for the window properties.
     ///< 0: x position
     ///< 1: y position
     ///< 2: width
     ///< 3: height
-    using WindowProps     = std::array<int32_t, 4>;
+    using WindowProps      = std::array<int32_t, 4>;
+    /// A typedef for the render callback function.
+    using RenderCallbackFn = void( *)( Surface* surface );
+    /// An alias for the render callback data.
+    using RenderCallback = std::tuple<RenderCallbackFn, bool>;
+    /// An alias for the map of render callbacks.
+    using RenderCallbacks = std::map<std::string, RenderCallback>;
 
 public:
     ///-------------------------------------------------------------------------------------------------
@@ -99,7 +105,47 @@ public:
     ///-------------------------------------------------------------------------------------------------
     static Overlay_t        New( const EDeviceType device_type );
 
-public:
+    virtual RenderCallback* add_callback(
+        const std::string& name,
+        RenderCallbackFn   callback,
+        const bool         active = true );
+
+    ///-------------------------------------------------------------------------------------------------
+    /// Callback, called when the pause.
+    ///
+    /// @author ReactiioN
+    /// @date   05.03.2017
+    ///
+    /// @param  name    The name.
+    ///
+    /// @return True if it succeeds, false if it fails.
+    ///-------------------------------------------------------------------------------------------------
+    virtual bool            pause_callback( const std::string& name );
+
+    ///-------------------------------------------------------------------------------------------------
+    /// Removes the callback described by name.
+    ///
+    /// @author ReactiioN
+    /// @date   05.03.2017
+    ///
+    /// @param  name    The name.
+    ///
+    /// @return True if it succeeds, false if it fails.
+    ///-------------------------------------------------------------------------------------------------
+    virtual bool            remove_callback( const std::string& name );
+
+    ///-------------------------------------------------------------------------------------------------
+    /// Callback, called when the resume.
+    ///
+    /// @author ReactiioN
+    /// @date   05.03.2017
+    ///
+    /// @param  name    The name.
+    ///
+    /// @return True if it succeeds, false if it fails.
+    ///-------------------------------------------------------------------------------------------------
+    virtual bool            resume_callback( const std::string& name );
+
     ///-------------------------------------------------------------------------------------------------
     /// Scales the overlay size to the target window size.
     ///
@@ -117,6 +163,14 @@ public:
     virtual void            shutdown();
 
 protected:
+    ///-------------------------------------------------------------------------------------------------
+    /// Executes the callbacks operation.
+    ///
+    /// @author ReactiioN
+    /// @date   05.03.2017
+    ///-------------------------------------------------------------------------------------------------
+    virtual void            execute_callbacks();
+
     ///-------------------------------------------------------------------------------------------------
     /// Window procedure.
     ///
@@ -190,6 +244,8 @@ protected:
     std::string     m_WindowTitle;
     /// The surface.
     Surface_t       m_Surface;
+    /// The render callbacks.
+    RenderCallbacks m_RenderCallbacks;
 };
 
 inline Surface* Overlay::get_surface() const

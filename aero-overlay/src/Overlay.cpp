@@ -134,6 +134,64 @@ Overlay::Overlay_t Overlay::New( const EDeviceType device_type )
     return nullptr;
 }
 
+Overlay::RenderCallback* Overlay::add_callback(
+    const std::string& name,
+    RenderCallbackFn   callback,
+    const bool         active )
+{
+    if( name.empty() || !callback ) {
+        return nullptr;
+    }
+    if( m_RenderCallbacks.count( name ) != 0 ) {
+        return nullptr;
+    }
+
+    m_RenderCallbacks.insert(
+        std::make_pair(
+            name,
+            std::make_tuple(
+                callback,
+                active
+            )
+        )
+    );
+
+    return &m_RenderCallbacks.at( name );
+}
+
+bool Overlay::pause_callback(
+    const std::string& name )
+{
+    if( !m_RenderCallbacks.count( name ) ) {
+        return false;
+    }
+
+    std::get<1>( m_RenderCallbacks.at( name ) ) = false;
+    return true;
+}
+
+bool Overlay::remove_callback(
+    const std::string& name )
+{
+    if( !m_RenderCallbacks.count( name ) ) {
+        return false;
+    }
+
+    m_RenderCallbacks.erase( name );
+    return true;
+}
+
+bool Overlay::resume_callback(
+    const std::string& name )
+{
+    if( !m_RenderCallbacks.count( name ) ) {
+        return false;
+    }
+
+    std::get<1>( m_RenderCallbacks.at( name ) ) = true;
+    return true;
+}
+
 void Overlay::scale_overlay()
 {      
     auto fix_var = []( int32_t& in, int32_t& fix )
@@ -175,6 +233,16 @@ void Overlay::shutdown()
         m_WndOverlay = nullptr;
     }
     m_WndTarget = nullptr;
+}
+
+void Overlay::execute_callbacks()
+{
+    for( const auto& kp : m_RenderCallbacks ) {
+        if( !std::get<1>( kp.second ) ) {
+            continue;
+        }
+        std::get<0>( kp.second )( m_Surface.get() );
+    }
 }
 
 LRESULT Overlay::window_procedure(
