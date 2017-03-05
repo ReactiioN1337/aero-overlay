@@ -3,7 +3,12 @@
 using namespace render;
 
 Font2D::Font2D(
-    const IDWriteFactory* write_factory )
+    const std::string&    name,
+    const int32_t         height,
+    const int32_t         weight,
+    const int32_t         flags,
+    const IDWriteFactory* write_factory ) :
+    Font( name, height, weight, flags )
 {
     set_device( write_factory );
 }

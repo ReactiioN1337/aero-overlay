@@ -1,8 +1,13 @@
 #include <render/Font3D9.hpp>
 using namespace render;
 
-Font3D9::Font3D9( 
-    const IDirect3DDevice9Ex* device )
+Font3D9::Font3D9(
+    const std::string&        name,
+    const int32_t             height,
+    const int32_t             weight,
+    const int32_t             flags,
+    const IDirect3DDevice9Ex* device ) :
+    Font( name, height, weight, flags )
 {
     set_device( device );
 }

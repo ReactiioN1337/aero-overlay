@@ -20,7 +20,12 @@ class Font3D9 :
 {
 public:
     Font3D9() = default;
-    Font3D9( const IDirect3DDevice9Ex* device );
+    Font3D9(
+        const std::string&        name,
+        const int32_t             height,
+        const int32_t             weight,
+        const int32_t             flags,
+        const IDirect3DDevice9Ex* device );
     ~Font3D9() override;
     void       shutdown() override;
     bool       create() override;

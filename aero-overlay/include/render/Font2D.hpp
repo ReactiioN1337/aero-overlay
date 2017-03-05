@@ -29,6 +29,10 @@ class Font2D :
 public:
     Font2D() = default;
     Font2D( 
+        const std::string&    name,
+        const int32_t         height,
+        const int32_t         weight,
+        const int32_t         flags,
         const IDWriteFactory* write_factory );
     ~Font2D() override;
     void               shutdown() override;
