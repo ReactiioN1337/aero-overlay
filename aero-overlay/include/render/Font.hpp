@@ -9,6 +9,22 @@ class Font
 {
 public:
     ///-------------------------------------------------------------------------------------------------
+    /// Constructor.
+    ///
+    /// @author ReactiioN
+    /// @date   05.03.2017
+    ///
+    /// @param  name    The name.
+    /// @param  height  The height.
+    /// @param  weight  The weight.
+    /// @param  flags   The flags.
+    ///-------------------------------------------------------------------------------------------------
+    Font(
+        const std::string& name,
+        const int32_t      height,
+        const int32_t      weight,
+        const int32_t      flags );
+    ///-------------------------------------------------------------------------------------------------
     /// Destructor.
     ///
     /// @author ReactiioN
@@ -86,6 +102,18 @@ protected:
     /// The flags.
     int32_t     m_Flags  = 0;    
 };
+
+inline Font::Font( 
+    const std::string& name,
+    const int32_t      height,
+    const int32_t      weight,
+    const int32_t      flags ) :
+    m_Name( name ),
+    m_Height( height ),
+    m_Weight( weight ),
+    m_Flags( flags )
+{
+}
 
 inline Font::~Font()
 {    
