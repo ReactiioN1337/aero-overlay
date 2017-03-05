@@ -176,12 +176,19 @@ public:
         const std::string& str );
 
 protected:
+    /// Handle of the overlay window.
     HWND            m_WndOverlay = nullptr;
+    /// Handle of the target window.
     HWND            m_WndTarget  = nullptr;
+    /// The width.
     int32_t         m_Width      = 0;
+    /// The height.
     int32_t         m_Height     = 0;
+    /// Name of the class.
     std::string     m_ClassName;
+    /// The window title.
     std::string     m_WindowTitle;
+    /// The surface.
     Surface_t       m_Surface;
 };
 
