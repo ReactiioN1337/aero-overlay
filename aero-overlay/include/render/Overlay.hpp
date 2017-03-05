@@ -77,7 +77,15 @@ public:
     ///-------------------------------------------------------------------------------------------------
     virtual bool            render();
 
-
+    ///-------------------------------------------------------------------------------------------------
+    /// Gets the surface.
+    ///
+    /// @author ReactiioN
+    /// @date   05.03.2017
+    ///
+    /// @return Null if it fails, else the surface.
+    ///-------------------------------------------------------------------------------------------------
+    inline Surface*         get_surface() const;
 
     ///-------------------------------------------------------------------------------------------------
     /// News the given device type.
@@ -90,6 +98,7 @@ public:
     /// @return An Overlay_t.
     ///-------------------------------------------------------------------------------------------------
     static Overlay_t        New( const EDeviceType device_type );
+
 public:
     ///-------------------------------------------------------------------------------------------------
     /// Scales the overlay size to the target window size.
@@ -175,6 +184,11 @@ protected:
     std::string     m_WindowTitle;
     Surface_t       m_Surface;
 };
+
+inline Surface* Overlay::get_surface() const
+{
+    return m_Surface ? m_Surface.get() : nullptr;
+}
 
 }
 
