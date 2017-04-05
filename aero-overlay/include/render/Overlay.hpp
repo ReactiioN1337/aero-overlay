@@ -16,6 +16,9 @@ enum class EDeviceType
 
 class Overlay
 {
+    /// An alias for the mutex.
+    using Mutex            = std::shared_timed_mutex;
+public:
     /// An alias for the unique surface pointer.
     using Surface_t        = std::unique_ptr<Surface>;
     /// An alias for the unique overlay pointer.
@@ -29,9 +32,9 @@ class Overlay
     /// A typedef for the render callback function.
     using RenderCallbackFn = void( *)( Surface* surface );
     /// An alias for the render callback data.
-    using RenderCallback = std::tuple<RenderCallbackFn, bool>;
+    using RenderCallback   = std::tuple<RenderCallbackFn, bool>;
     /// An alias for the map of render callbacks.
-    using RenderCallbacks = std::map<std::string, RenderCallback>;
+    using RenderCallbacks  = std::map<std::string, RenderCallback>;
 
 public:
     ///-------------------------------------------------------------------------------------------------
@@ -246,6 +249,8 @@ protected:
     Surface_t       m_Surface;
     /// The render callbacks.
     RenderCallbacks m_RenderCallbacks;
+    /// The mutex.
+    mutable Mutex   m_mutex;
 };
 
 inline Surface* Overlay::get_surface() const

@@ -28,15 +28,12 @@ bool Surface2D::initialize( const void* device )
         m_DirectWriteFactory &&
         m_Direct2DHwndRenderTarget;
 
-    return m_Initialized;
+    return m_Initialized.load();
 }
 
 bool Surface2D::begin_scene()
 {
-    if( m_Initialized ) {
-        
-    }
-    return m_Initialized;
+    return m_Initialized.load();
 }
 
 Font_t Surface2D::add_font(
@@ -46,11 +43,13 @@ Font_t Surface2D::add_font(
     const int32_t      weight,
     const int32_t      flags )
 {
-    if( !m_Initialized ||
+    if( !m_Initialized.load() ||
         name.empty()   ||
         definition.empty() ) {
         return nullptr;
     }
+
+    std::unique_lock<Mutex> lock( m_mutex );
     if( m_Fonts.count( name ) ) {
         return m_Fonts.at( name );
     }
@@ -72,7 +71,7 @@ Font_t Surface2D::add_font(
 
 void Surface2D::end_scene()
 {
-    if( m_Initialized ) {
+    if( m_Initialized.load() ) {
         render_data();
     }
 }
@@ -92,10 +91,11 @@ void Surface2D::text(
     const Color&       color,
     const std::string& message )
 {
-    if( !m_Initialized || !font || message.empty() ) {
+    if( !m_Initialized.load() || !font || message.empty() ) {
         return;
     }
 
+    render_data();
     auto direct_draw_font = std::static_pointer_cast<Font2D>( font );
     
     const auto X = static_cast<float>( x );
@@ -140,10 +140,11 @@ void Surface2D::set_color_brush(
 
 void Surface2D::render_data()
 {
-    if( !m_Initialized ) {
+    if( !m_Initialized.load() ) {
         return;
     }
 
+    std::unique_lock<Mutex> lock( m_mutex );
     for( const auto& data : m_RectAngles ) {
         const auto& x   = static_cast<float>( std::get<0>( data ) );
         const auto& y   = static_cast<float>( std::get<1>( data ) );

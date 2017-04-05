@@ -9,6 +9,7 @@ Surface::~Surface()
 Font_t Surface::get_font(
     const std::string& name )
 {
+    std::shared_lock<Mutex> lock( m_mutex );
     return !name.empty() && m_Fonts.count( name ) != 0 
          ? m_Fonts.at( name )
          : nullptr;
@@ -16,6 +17,7 @@ Font_t Surface::get_font(
 
 void Surface::shutdown()
 {
+    std::unique_lock<Mutex> lock( m_mutex );
     for( auto& kp : m_Fonts ) {
         kp.second->shutdown();
     }
@@ -111,7 +113,7 @@ void Surface::text(
     const Color&       color,
     const std::string& message )
 {
-    if( m_Initialized ) {
+    if( m_Initialized.load() ) {
         auto font = get_font( font_name );
         if( font ) {
             text( x, y, font, color, message );

@@ -85,12 +85,12 @@ bool Surface3D9::initialize( const void* device )
     m_Direct3D9Device = static_cast<IDirect3DDevice9Ex*>( const_cast<void*>( device ) );
     m_Initialized     = m_Direct3D9Device != nullptr;
 
-    return m_Initialized;
+    return m_Initialized.load();
 }
 
 bool Surface3D9::begin_scene()
 {
-    if( m_Initialized ) {
+    if( m_Initialized.load() ) {
         m_Direct3D9Device->SetFVF( D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1 );
         m_Direct3D9Device->SetTexture( 0, nullptr );
         m_Direct3D9Device->SetVertexShader( nullptr );
@@ -130,7 +130,7 @@ bool Surface3D9::begin_scene()
             return false;
         }
     }
-    return m_Initialized;
+    return m_Initialized.load();
 }
 
 Font_t Surface3D9::add_font(
@@ -140,11 +140,13 @@ Font_t Surface3D9::add_font(
     const int32_t      weight,
     const int32_t      flags )
 {
-    if( !m_Initialized ||
-        name.empty()   ||
+    if( !m_Initialized.load() ||
+        name.empty()          ||
         definition.empty() ) {
         return nullptr;
     }
+
+    std::unique_lock<Mutex> lock( m_mutex );
     if( m_Fonts.count( name ) ) {
         return m_Fonts.at( name );
     }
@@ -167,7 +169,7 @@ Font_t Surface3D9::add_font(
 
 void Surface3D9::end_scene()
 {
-    if( m_Initialized ) {
+    if( m_Initialized.load() ) {        
         render_data();
     }
 }
@@ -185,10 +187,11 @@ void Surface3D9::text(
     const Color&       color,
     const std::string& message )
 {
-    if( !m_Initialized || !font || message.empty() ) {
+    if( !m_Initialized.load() || !font || message.empty() ) {
         return;
     }
 
+    render_data();
     const auto message_length = static_cast<int32_t>( message.length() );
     auto direct_draw_font     = std::static_pointer_cast<Font3D9>( font );
     RECT font_rect = {
@@ -215,13 +218,14 @@ void Surface3D9::set_sprite( const ID3DXSprite* sprite )
 
 void Surface3D9::render_data()
 {
-    if( !m_Initialized ) {
+    if( !m_Initialized.load() ) {
         return;
     }
 
     static std::array<D3DVERTEX, 2> line_vertices;
     static std::array<D3DVERTEX, 4> rect_vertices;
     
+    std::unique_lock<Mutex> lock( m_mutex );
     for( const auto& data : m_RectAngles ) {
         const auto& x  = std::get<0>( data );
         const auto& y  = std::get<1>( data );

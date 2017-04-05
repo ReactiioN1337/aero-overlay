@@ -20,6 +20,7 @@ bool Overlay::create(
         return false;
     }
 
+    std::unique_lock<Mutex> lock( m_mutex );
     m_WndTarget = FindWindowA( nullptr, target_window_title.c_str() );
     if( !m_WndTarget ) {
         return false;
@@ -142,10 +143,12 @@ Overlay::RenderCallback* Overlay::add_callback(
     if( name.empty() || !callback ) {
         return nullptr;
     }
+    
+    std::unique_lock<std::shared_timed_mutex> lock( m_mutex );
     if( m_RenderCallbacks.count( name ) != 0 ) {
         return nullptr;
     }
-
+    
     m_RenderCallbacks.insert(
         std::make_pair(
             name,
@@ -162,6 +165,7 @@ Overlay::RenderCallback* Overlay::add_callback(
 bool Overlay::pause_callback(
     const std::string& name )
 {
+    std::unique_lock<std::shared_timed_mutex> lock( m_mutex );
     if( !m_RenderCallbacks.count( name ) ) {
         return false;
     }
@@ -223,6 +227,8 @@ void Overlay::scale_overlay()
 
 void Overlay::shutdown()
 {
+    std::unique_lock<Mutex> lock( m_mutex );
+
 #if defined(_UNICODE)
     UnregisterClass( convert_string_to_wide( m_ClassName ).c_str(), nullptr );
 #else

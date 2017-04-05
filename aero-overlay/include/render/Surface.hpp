@@ -10,6 +10,9 @@ namespace render {
 class Surface
 {
 public:
+    /// An alias for the mutex.
+    using Mutex = std::shared_timed_mutex;
+    /// The maximum render elements.
     static constexpr size_t MAX_RENDER_ELEMENTS = 512;
 
 private:
@@ -25,7 +28,7 @@ private:
     /// An alias for the map of fonts.
     using Fonts      = std::map<std::string, Font_t>;
     /// An alias for the render objects.
-    using RenderData = std::vector<RenderObj>;
+    using RenderData = std::vector<RenderObj>;    
 
 public:
     ///-------------------------------------------------------------------------------------------------
@@ -323,10 +326,11 @@ protected:
         const drawing::Color& color );
 
 protected:
-    bool       m_Initialized = false;
-    RenderData m_Lines;
-    RenderData m_RectAngles;
-    Fonts      m_Fonts;
+    std::atomic_bool m_Initialized = false;
+    RenderData    m_Lines;
+    RenderData    m_RectAngles;
+    Fonts         m_Fonts;
+    mutable Mutex m_mutex;
 };
 
 template<typename T1, typename T2, typename T3, typename T4>
@@ -342,6 +346,7 @@ void Surface::insert_line(
     static_assert( std::is_arithmetic<T3>::value, "Type T3 has to be arithmetic" );
     static_assert( std::is_arithmetic<T4>::value, "Type T4 has to be arithmetic" );
 
+    std::unique_lock<Mutex> lock( m_mutex );
     if( m_Lines.size() >= MAX_RENDER_ELEMENTS - 1 ) {
         render_data();
     }
@@ -370,6 +375,7 @@ void Surface::insert_rect_angle(
     static_assert( std::is_arithmetic<T3>::value, "Type T3 has to be arithmetic" );
     static_assert( std::is_arithmetic<T4>::value, "Type T4 has to be arithmetic" );
 
+    std::unique_lock<Mutex> lock( m_mutex );
     if( m_RectAngles.size() >= MAX_RENDER_ELEMENTS - 1 ) {
         render_data();
     }
