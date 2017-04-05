@@ -8,6 +8,8 @@
 
 /// std::arry
 #include <array>
+/// std::atomic<T>
+#include <atomic>
 /// std::transform, std::find, ...
 #include <algorithm>
 /// std::wstring_converter
@@ -24,6 +26,8 @@
 #include <random>
 /// std::stringstream, stream << operator for strings
 #include <sstream>
+/// std::shared_timed_mutex, std::unique_lock, std::shared_lock
+#include <shared_mutex>
 /// std::tuple
 #include <tuple>
 /// std::this_thread::sleep_for
