@@ -1,116 +1,104 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="drawing">
-      <UniqueIdentifier>{4eb0981e-e37b-4d6e-b992-ece496fea891}</UniqueIdentifier>
+      <UniqueIdentifier>{c378eee7-79d5-475e-94d9-b2dafffd24d4}</UniqueIdentifier>
     </Filter>
     <Filter Include="drawing\Color">
-      <UniqueIdentifier>{7580976c-a049-445d-aeaf-3bf8c422b3f5}</UniqueIdentifier>
+      <UniqueIdentifier>{30383736-1f73-46f6-93bb-70ed96805af2}</UniqueIdentifier>
     </Filter>
     <Filter Include="render">
-      <UniqueIdentifier>{1a28c391-ef11-46c3-ab67-1b821078a83e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="render\Overlay">
-      <UniqueIdentifier>{2341b855-3f62-4d46-88e6-9831d0f4113e}</UniqueIdentifier>
+      <UniqueIdentifier>{08f63f3f-1013-4599-be0c-3fa5b9140b2e}</UniqueIdentifier>
     </Filter>
     <Filter Include="render\Direct2D">
-      <UniqueIdentifier>{7b7cdb8f-f56a-41a0-8f8a-3886bbc23b55}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="render\Direct3D9">
-      <UniqueIdentifier>{9cc90e39-3ecc-4057-982c-f08f71e75b12}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="render\Surface">
-      <UniqueIdentifier>{fc7b7c1b-0baf-43a9-981b-12c9fae54b45}</UniqueIdentifier>
+      <UniqueIdentifier>{d1367cf3-7872-4500-bc91-a5e4bbe50e4c}</UniqueIdentifier>
     </Filter>
     <Filter Include="render\Direct2D\Surface">
-      <UniqueIdentifier>{8ec48a02-2005-423c-b31e-094edb871d76}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="render\Direct3D9\Surface">
-      <UniqueIdentifier>{bfde8471-9e6e-4cf6-ba8e-47f6ab81b841}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="render\Font">
-      <UniqueIdentifier>{25919da6-2de2-43b9-826f-085e50c50c1a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="render\Direct3D9\Font">
-      <UniqueIdentifier>{bfe363fa-bf75-4ca8-b9e9-2906925db3c5}</UniqueIdentifier>
+      <UniqueIdentifier>{881439c7-cb3a-4c3a-a016-097fbac66529}</UniqueIdentifier>
     </Filter>
     <Filter Include="render\Direct2D\Font">
-      <UniqueIdentifier>{75ce06e8-8127-4204-9ad0-e5993de7b1e7}</UniqueIdentifier>
+      <UniqueIdentifier>{67477d5f-9cc6-40cc-bc49-ea8026b6b599}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="render\Direct3D">
+      <UniqueIdentifier>{440681f1-478e-44e0-8876-ecf7eb82d25d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="render\Direct3D\Surface">
+      <UniqueIdentifier>{30d32a99-43fc-42cb-bfe6-ec5535847e92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="render\Direct3D\Font">
+      <UniqueIdentifier>{6b3ba2fc-1f7e-4f12-974b-533c686665e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="render\Surface">
+      <UniqueIdentifier>{ec6c11c2-fd7b-4ba8-961c-7986580a146d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="render\Overlay">
+      <UniqueIdentifier>{dc77c9fa-15ae-455f-a86f-3d9ba39bdbac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="render\Font">
+      <UniqueIdentifier>{dd8bc1b8-6e18-4fcc-a87d-5232b69999c5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Color.cpp">
+    <ClCompile Include="src\Color.cpp">
       <Filter>drawing\Color</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Overlay.cpp">
-      <Filter>render\Overlay</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Device3D9.cpp">
-      <Filter>render\Direct3D9</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Device2D.cpp">
+    <ClCompile Include="src\Device2D.cpp">
       <Filter>render\Direct2D</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Surface.cpp">
-      <Filter>render\Surface</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Surface2D.cpp">
-      <Filter>render\Direct2D\Surface</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Surface3D9.cpp">
-      <Filter>render\Direct3D9\Surface</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Font3D9.cpp">
-      <Filter>render\Direct3D9\Font</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Font2D.cpp">
+    <ClCompile Include="src\Font2D.cpp">
       <Filter>render\Direct2D\Font</Filter>
     </ClCompile>
+    <ClCompile Include="src\Surface2D.cpp">
+      <Filter>render\Direct2D\Surface</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Device3D9.cpp">
+      <Filter>render\Direct3D</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Surface3D9.cpp">
+      <Filter>render\Direct3D\Surface</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Font3D9.cpp">
+      <Filter>render\Direct3D\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Overlay.cpp">
+      <Filter>render\Overlay</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Surface.cpp">
+      <Filter>render\Surface</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\stdafx.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\drawing\Color.hpp">
+    <ClInclude Include="include\drawing\Color.hpp">
       <Filter>drawing\Color</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Overlay.hpp">
-      <Filter>render\Overlay</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Device3D9.hpp">
-      <Filter>render\Direct3D9</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Device2D.hpp">
+    <ClInclude Include="include\render\Device2D.hpp">
       <Filter>render\Direct2D</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Surface.hpp">
-      <Filter>render\Surface</Filter>
+    <ClInclude Include="include\render\Font2D.hpp">
+      <Filter>render\Direct2D\Font</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Surface2D.hpp">
+    <ClInclude Include="include\render\Surface2D.hpp">
       <Filter>render\Direct2D\Surface</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Surface3D9.hpp">
-      <Filter>render\Direct3D9\Surface</Filter>
+    <ClInclude Include="include\render\Device3D9.hpp">
+      <Filter>render\Direct3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Font.hpp">
+    <ClInclude Include="include\render\Surface3D9.hpp">
+      <Filter>render\Direct3D\Surface</Filter>
+    </ClInclude>
+    <ClInclude Include="include\render\Font.hpp">
       <Filter>render\Font</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Font3D9.hpp">
-      <Filter>render\Direct3D9\Font</Filter>
+    <ClInclude Include="include\render\Overlay.hpp">
+      <Filter>render\Overlay</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Font2D.hpp">
-      <Filter>render\Direct2D\Font</Filter>
+    <ClInclude Include="include\render\Surface.hpp">
+      <Filter>render\Surface</Filter>
+    </ClInclude>
+    <ClInclude Include="include\stdafx.hpp" />
+    <ClInclude Include="include\render\Font3D9.hpp">
+      <Filter>render\Direct3D\Font</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

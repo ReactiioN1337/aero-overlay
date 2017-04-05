@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -19,7 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{6F689E77-FDCC-49B9-90CF-95665AF73D0F}</ProjectGuid>
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{3DDEA1F2-21AD-4249-92FB-EF0B3A47A065}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>aerooverlay</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
@@ -28,26 +29,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -73,21 +74,29 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)build\$(Configuration)-$(PlatformTarget)\</OutDir>
     <IntDir>$(SolutionDir)build\$(Configuration)-$(PlatformTarget)\tmp\$(ProjectName)\</IntDir>
+    <IncludePath>$(ProjectDir)contrib\DirectX-SDK\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)contrib\DirectX-SDK\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)build\$(Configuration)-$(PlatformTarget)\</OutDir>
     <IntDir>$(SolutionDir)build\$(Configuration)-$(PlatformTarget)\tmp\$(ProjectName)\</IntDir>
+    <IncludePath>$(ProjectDir)contrib\DirectX-SDK\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)contrib\DirectX-SDK\Lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)build\$(Configuration)-$(PlatformTarget)\</OutDir>
     <IntDir>$(SolutionDir)build\$(Configuration)-$(PlatformTarget)\tmp\$(ProjectName)\</IntDir>
+    <IncludePath>$(ProjectDir)contrib\DirectX-SDK\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)contrib\DirectX-SDK\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)build\$(Configuration)-$(PlatformTarget)\</OutDir>
     <IntDir>$(SolutionDir)build\$(Configuration)-$(PlatformTarget)\tmp\$(ProjectName)\</IntDir>
+    <IncludePath>$(ProjectDir)contrib\DirectX-SDK\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)contrib\DirectX-SDK\Lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -95,16 +104,13 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NOMINMAX;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)contrib\DirectX-SDK\Include;$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <MinimalRebuild>false</MinimalRebuild>
-      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)contrib\DirectX-SDK\Lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -113,16 +119,13 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NOMINMAX;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)contrib\DirectX-SDK\Include;$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <MinimalRebuild>false</MinimalRebuild>
-      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)contrib\DirectX-SDK\Lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -133,10 +136,11 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NOMINMAX;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)contrib\DirectX-SDK\Include;$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>None</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -144,7 +148,6 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <AssemblyDebug>false</AssemblyDebug>
-      <AdditionalLibraryDirectories>$(ProjectDir)contrib\DirectX-SDK\Lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -155,10 +158,11 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NOMINMAX;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)contrib\DirectX-SDK\Include;$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>None</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -166,33 +170,32 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <AssemblyDebug>false</AssemblyDebug>
-      <AdditionalLibraryDirectories>$(ProjectDir)contrib\DirectX-SDK\Lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Color.cpp" />
-    <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Device2D.cpp" />
-    <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Device3D9.cpp" />
-    <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Font2D.cpp" />
-    <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Font3D9.cpp" />
-    <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\main.cpp" />
-    <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Overlay.cpp" />
-    <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Surface.cpp" />
-    <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Surface2D.cpp" />
-    <ClCompile Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\src\Surface3D9.cpp" />
+    <ClCompile Include="src\Color.cpp" />
+    <ClCompile Include="src\Device2D.cpp" />
+    <ClCompile Include="src\Device3D9.cpp" />
+    <ClCompile Include="src\Font2D.cpp" />
+    <ClCompile Include="src\Font3D9.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Overlay.cpp" />
+    <ClCompile Include="src\Surface.cpp" />
+    <ClCompile Include="src\Surface2D.cpp" />
+    <ClCompile Include="src\Surface3D9.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\drawing\Color.hpp" />
-    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Device2D.hpp" />
-    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Device3D9.hpp" />
-    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Font.hpp" />
-    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Font2D.hpp" />
-    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Font3D9.hpp" />
-    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Overlay.hpp" />
-    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Surface.hpp" />
-    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Surface2D.hpp" />
-    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\render\Surface3D9.hpp" />
-    <ClInclude Include="..\..\..\git%40ReactiioN1337\aero-overlay\aero-overlay\include\stdafx.hpp" />
+    <ClInclude Include="include\drawing\Color.hpp" />
+    <ClInclude Include="include\render\Device2D.hpp" />
+    <ClInclude Include="include\render\Device3D9.hpp" />
+    <ClInclude Include="include\render\Font.hpp" />
+    <ClInclude Include="include\render\Font2D.hpp" />
+    <ClInclude Include="include\render\Font3D9.hpp" />
+    <ClInclude Include="include\render\Overlay.hpp" />
+    <ClInclude Include="include\render\Surface.hpp" />
+    <ClInclude Include="include\render\Surface2D.hpp" />
+    <ClInclude Include="include\render\Surface3D9.hpp" />
+    <ClInclude Include="include\stdafx.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
