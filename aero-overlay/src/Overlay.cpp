@@ -82,7 +82,7 @@ bool Overlay::create(
         m_WndOverlay,
         RGB( NULL, NULL, NULL ),
         255,
-        ULW_COLORKEY | LWA_ALPHA ) ) {
+        LWA_ALPHA ) ) {
         return false;
     }
 
