@@ -1,6 +1,5 @@
 #include <aero-overlay/overlay.hpp>
 #include <dwmapi.h>
-#pragma comment(lib, "dwmapi.lib")
 #include <random>
 using namespace aero;
 
