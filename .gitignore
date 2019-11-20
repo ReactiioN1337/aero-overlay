@@ -243,3 +243,6 @@ FakesAssemblies/
 *.opt
 /.project
 *.ini
+
+# Line Ending Unifier
+*.leu
