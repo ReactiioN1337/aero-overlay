@@ -156,6 +156,9 @@
   <ItemGroup>
     <ClCompile Include="src\overlay.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\aero-overlay\detail\requirements.hpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
