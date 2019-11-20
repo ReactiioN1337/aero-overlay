@@ -23,5 +23,8 @@
     <ClInclude Include="include\aero-overlay\detail\requirements.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\aero-overlay\overlay.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
