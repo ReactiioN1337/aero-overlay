@@ -5,7 +5,8 @@ using namespace aero;
 
 template<typename type = RECT>
 type get_window_props(
-    HWND hwnd )
+    HWND hwnd
+)
 {
     RECT client{}, window{};
     GetClientRect( hwnd, &client );
@@ -55,7 +56,8 @@ overlay::overlay()
 }
 
 overlay::overlay(
-    overlay&& rhs ) noexcept
+    overlay&& rhs 
+) noexcept
 {
     *this = std::move( rhs );
 }
@@ -66,7 +68,8 @@ overlay::~overlay()
 }
 
 overlay& overlay::operator = (
-    overlay&& rhs ) noexcept
+    overlay&& rhs 
+) noexcept
 {
     _class  = std::move( rhs._class );
     _title  = std::move( rhs._title );
@@ -84,7 +87,8 @@ overlay& overlay::operator = (
 }
 
 bool overlay::attach(
-    const std::string_view window_title )
+    const std::string_view window_title 
+)
 {
     return window_title.empty()
         ? false
@@ -92,7 +96,8 @@ bool overlay::attach(
 }
 
 bool overlay::attach(
-    const std::uint32_t process_id )
+    const std::uint32_t process_id 
+)
 {
     using callback_data_type = std::pair<const std::uint32_t*, HWND>;
 
@@ -122,7 +127,8 @@ bool overlay::attach(
 }
 
 bool overlay::attach(
-    HWND target_window )
+    HWND target_window 
+)
 {
     if( !target_window ) {
         return false;
@@ -175,7 +181,7 @@ bool overlay::attach(
     }
 
     scale();
-    if( !SetLayeredWindowAttributes( _window, RGB( 0, 0, 0 ), 255, ULW_COLORKEY | LWA_ALPHA ) ) {
+    if( !SetLayeredWindowAttributes( _window, RGB( 0, 0, 0 ), 255, LWA_ALPHA ) ) {
         return false;
     }
 
@@ -229,7 +235,8 @@ void overlay::scale()
         if( in == 0 ) {
             in++;
             out--;
-        } else {
+        }
+        else {
             in--;
             out++;
         }
@@ -257,9 +264,10 @@ std::intptr_t overlay::window_proc(
     void*                window_handle,
     const std::uint32_t  message,
     const std::uintptr_t wparam,
-    const std::intptr_t  lparam )
+    const std::intptr_t  lparam 
+)
 {
-    const auto hwnd = static_cast<HWND>( window_handle );
+    auto* const hwnd = static_cast<HWND>( window_handle );
     switch( message ) {
     case WM_DESTROY:
         PostQuitMessage( EXIT_SUCCESS );
