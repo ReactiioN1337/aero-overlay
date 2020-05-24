@@ -214,6 +214,10 @@ void overlay::destroy()
 
     _window = nullptr;
     _target = nullptr;
+
+    if( _surface ) {
+        _surface->release();
+    }
 }
 
 bool overlay::message_loop() const noexcept
