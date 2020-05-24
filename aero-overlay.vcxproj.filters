@@ -18,12 +18,42 @@
     <ClCompile Include="src\overlay.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\direct2d\d2d_font.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\direct2d\d2d_surface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\aero-overlay\detail\requirements.hpp">
+    <ClInclude Include="include\aero-overlay\overlay.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\aero-overlay\overlay.hpp">
+    <ClInclude Include="include\aero-overlay\font.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\aero-overlay\core\requirements.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\aero-overlay\core\api_status.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\aero-overlay\surface.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\aero-overlay\core\color.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\direct2d\d2d_font.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\direct2d\pre_include.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\string_converter.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\direct2d\d2d_surface.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

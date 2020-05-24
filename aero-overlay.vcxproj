@@ -26,26 +26,26 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -162,11 +162,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\direct2d\d2d_font.cpp" />
+    <ClCompile Include="src\direct2d\d2d_surface.cpp" />
     <ClCompile Include="src\overlay.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\aero-overlay\detail\requirements.hpp" />
+    <ClInclude Include="include\aero-overlay\core\api_status.hpp" />
+    <ClInclude Include="include\aero-overlay\core\color.hpp" />
+    <ClInclude Include="include\aero-overlay\core\requirements.hpp" />
+    <ClInclude Include="include\aero-overlay\font.hpp" />
     <ClInclude Include="include\aero-overlay\overlay.hpp" />
+    <ClInclude Include="include\aero-overlay\surface.hpp" />
+    <ClInclude Include="src\direct2d\d2d_font.hpp" />
+    <ClInclude Include="src\direct2d\d2d_surface.hpp" />
+    <ClInclude Include="src\direct2d\pre_include.hpp" />
+    <ClInclude Include="src\utils\string_converter.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
