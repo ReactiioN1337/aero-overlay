@@ -14,7 +14,9 @@
 
 #include <Windows.h>
 #include <array>
+#include <functional>
 #include <map>
 #include <memory>
 #include <string>
+#include <unordered_map>
 #include <vector>
