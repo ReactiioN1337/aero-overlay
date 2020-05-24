@@ -1,6 +1,12 @@
+///--------------------------------------------------------------------------------
+///-- Author        ReactiioN
+///-- Copyright     2016-2019, ReactiioN
+///-- License       MIT
+///--------------------------------------------------------------------------------
 #include <aero-overlay/overlay.hpp>
 #include <dwmapi.h>
 #include <random>
+#include "direct2d/d2d_surface.hpp"
 using namespace aero;
 
 template<typename type = RECT>
@@ -56,7 +62,7 @@ overlay::overlay()
 }
 
 overlay::overlay(
-    overlay&& rhs 
+    overlay&& rhs
 ) noexcept
 {
     *this = std::move( rhs );
@@ -68,7 +74,7 @@ overlay::~overlay()
 }
 
 overlay& overlay::operator = (
-    overlay&& rhs 
+    overlay&& rhs
 ) noexcept
 {
     _class  = std::move( rhs._class );
@@ -86,17 +92,17 @@ overlay& overlay::operator = (
     return *this;
 }
 
-bool overlay::attach(
-    const std::string_view window_title 
+api_status overlay::attach(
+    const std::string_view window_title
 )
 {
     return window_title.empty()
-        ? false
+        ? api_status::missing_window_title
         : attach( FindWindowA( nullptr, window_title.data() ) );
 }
 
-bool overlay::attach(
-    const std::uint32_t process_id 
+api_status overlay::attach(
+    const std::uint32_t process_id
 )
 {
     using callback_data_type = std::pair<const std::uint32_t*, HWND>;
@@ -126,20 +132,17 @@ bool overlay::attach(
     return attach( data.second );
 }
 
-bool overlay::attach(
-    HWND target_window 
+api_status overlay::attach(
+    HWND target_window
 )
 {
     if( !target_window ) {
-        return false;
+        return api_status::missing_window_handle;
     }
 
     auto dwm_enabled = 0;
-    if( FAILED( DwmIsCompositionEnabled( &dwm_enabled ) ) ) {
-        return false;
-    }
-    if( !dwm_enabled ) {
-        return false;
+    if( FAILED( DwmIsCompositionEnabled( &dwm_enabled ) ) || !dwm_enabled ) {
+        return api_status::missing_aero_feature;
     }
 
     WNDCLASSEXA wc = {
@@ -158,7 +161,7 @@ bool overlay::attach(
     };
 
     if( !RegisterClassExA( &wc ) ) {
-        return false;
+        return api_status::failed_to_register_window;
     }
 
     _target = target_window;
@@ -177,23 +180,27 @@ bool overlay::attach(
         this
     );
     if( !_window ) {
-        return false;
+        return api_status::failed_to_create_window;
     }
 
     scale();
     if( !SetLayeredWindowAttributes( _window, RGB( 0, 0, 0 ), 255, LWA_ALPHA ) ) {
-        return false;
+        return api_status::failed_to_make_window_transparent;
     }
 
     const auto margins = get_window_props<MARGINS>( _window );
     if( FAILED( DwmExtendFrameIntoClientArea( _window, &margins ) ) ) {
-        return false;
+        return api_status::failed_to_make_window_transparent;
     }
 
     ShowWindow( _window, SW_SHOWDEFAULT );
     UpdateWindow( _window );
 
-    return true;
+    if( !_surface ) {
+        set_surface( std::make_shared<d2d_surface>() );
+    }
+
+    return _surface->initialize( _window, _target );
 }
 
 void overlay::destroy()
@@ -260,11 +267,22 @@ void overlay::scale()
     );
 }
 
+void overlay::set_surface(
+    surface_ptr surface
+)
+{
+    if( _surface ) {
+        _surface->release();
+    }
+
+    _surface = std::move( surface );
+}
+
 std::intptr_t overlay::window_proc(
     void*                window_handle,
     const std::uint32_t  message,
     const std::uintptr_t wparam,
-    const std::intptr_t  lparam 
+    const std::intptr_t  lparam
 )
 {
     auto* const hwnd = static_cast<HWND>( window_handle );
